@@ -21,11 +21,11 @@ public class SubscriptionController {
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @Value("${PAYU_API_KEY}")
-    private String API_KEY;
+    // @Value("${PAYU_API_KEY}")
+    private String API_KEY = "4Vj8eK4rloUd272L48hsrarnUA";
 
-    @Value("${PAYU_MERCHANT_ID}")
-    private String MERCHANT_ID;
+    // @Value("${PAYU_MERCHANT_ID}")
+    private String MERCHANT_ID = "508029";
 
     public Mono<ServerResponse> findByAuthUser(ServerRequest serverRequest) {
         return serverRequest.principal()

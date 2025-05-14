@@ -24,11 +24,11 @@ public class AdminConfig implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Value("${ADMIN_EMAIL}")
-    private String adminEmail;
+    // @Value("${ADMIN_EMAIL}")
+    private String adminEmail = "admin@admin.com";
 
-    @Value("${ADMIN_PASS}")
-    private String adminPass;
+    // @Value("${ADMIN_PASS}")
+    private String adminPass = "test12345";
 
     @Override
     public void run(String... args) {

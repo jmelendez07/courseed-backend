@@ -12,8 +12,8 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 @Configuration
 public class CorsConfig {
 
-    @Value("${VITE_BASE_URL}")
-    private String viteBaseUrl;
+    // @Value("${VITE_BASE_URL}")
+    private String viteBaseUrl = "https://courseed.up.railway.app/";
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

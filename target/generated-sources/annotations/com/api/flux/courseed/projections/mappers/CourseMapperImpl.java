@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-05T17:28:02-0500",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
+    date = "2025-05-14T13:00:55-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class CourseMapperImpl implements CourseMapper {
@@ -22,16 +22,15 @@ public class CourseMapperImpl implements CourseMapper {
 
         Course course = new Course();
 
-        course.setCategoryId( saveCourseDto.getCategoryId() );
+        course.setUrl( saveCourseDto.getUrl() );
+        course.setTitle( saveCourseDto.getTitle() );
         course.setDescription( saveCourseDto.getDescription() );
-        course.setDuration( saveCourseDto.getDuration() );
-        course.setImage( saveCourseDto.getImage() );
-        course.setInstitutionId( saveCourseDto.getInstitutionId() );
-        course.setModality( saveCourseDto.getModality() );
         course.setPrerequisites( saveCourseDto.getPrerequisites() );
         course.setPrice( saveCourseDto.getPrice() );
-        course.setTitle( saveCourseDto.getTitle() );
-        course.setUrl( saveCourseDto.getUrl() );
+        course.setDuration( saveCourseDto.getDuration() );
+        course.setModality( saveCourseDto.getModality() );
+        course.setCategoryId( saveCourseDto.getCategoryId() );
+        course.setInstitutionId( saveCourseDto.getInstitutionId() );
 
         return course;
     }
@@ -44,15 +43,15 @@ public class CourseMapperImpl implements CourseMapper {
 
         CourseDto courseDto = new CourseDto();
 
-        courseDto.setDescription( course.getDescription() );
-        courseDto.setDuration( course.getDuration() );
         courseDto.setId( course.getId() );
-        courseDto.setImage( course.getImage() );
-        courseDto.setModality( course.getModality() );
-        courseDto.setPrice( course.getPrice() );
-        courseDto.setTitle( course.getTitle() );
-        courseDto.setType( course.getType() );
         courseDto.setUrl( course.getUrl() );
+        courseDto.setTitle( course.getTitle() );
+        courseDto.setImage( course.getImage() );
+        courseDto.setDescription( course.getDescription() );
+        courseDto.setPrice( course.getPrice() );
+        courseDto.setType( course.getType() );
+        courseDto.setDuration( course.getDuration() );
+        courseDto.setModality( course.getModality() );
 
         return courseDto;
     }

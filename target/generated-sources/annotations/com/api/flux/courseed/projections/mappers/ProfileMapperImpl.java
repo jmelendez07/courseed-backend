@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-05T13:22:57-0500",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
+    date = "2025-05-14T13:00:55-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class ProfileMapperImpl implements ProfileMapper {
@@ -22,14 +22,14 @@ public class ProfileMapperImpl implements ProfileMapper {
 
         ProfileDto profileDto = new ProfileDto();
 
+        profileDto.setKnowledgeLevel( profile.getKnowledgeLevel() );
         profileDto.setAvailableHoursTime( profile.getAvailableHoursTime() );
+        profileDto.setPlatformPrefered( profile.getPlatformPrefered() );
         profileDto.setBudget( profile.getBudget() );
         profileDto.setCreatedAt( profile.getCreatedAt() );
-        profileDto.setId( profile.getId() );
-        profileDto.setInterest( profile.getInterest() );
-        profileDto.setKnowledgeLevel( profile.getKnowledgeLevel() );
-        profileDto.setPlatformPrefered( profile.getPlatformPrefered() );
         profileDto.setUpdatedAt( profile.getUpdatedAt() );
+        profileDto.setInterest( profile.getInterest() );
+        profileDto.setId( profile.getId() );
 
         return profileDto;
     }
@@ -42,11 +42,11 @@ public class ProfileMapperImpl implements ProfileMapper {
 
         Profile profile = new Profile();
 
-        profile.setAvailableHoursTime( saveProfileDto.getAvailableHoursTime() );
-        profile.setBudget( saveProfileDto.getBudget() );
         profile.setInterest( saveProfileDto.getInterest() );
         profile.setKnowledgeLevel( saveProfileDto.getKnowledgeLevel() );
+        profile.setAvailableHoursTime( saveProfileDto.getAvailableHoursTime() );
         profile.setPlatformPrefered( saveProfileDto.getPlatformPrefered() );
+        profile.setBudget( saveProfileDto.getBudget() );
 
         return profile;
     }

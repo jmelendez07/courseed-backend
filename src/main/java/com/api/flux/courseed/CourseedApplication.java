@@ -17,6 +17,7 @@ public class CourseedApplication {
 		System.getenv("PAYU_MERCHANT_ID");
 		System.getenv("VITE_BASE_URL");
 		
+		System.out.println(">>> Starting Courseed Application");
 		SpringApplication.run(CourseedApplication.class, args);
 	}
 

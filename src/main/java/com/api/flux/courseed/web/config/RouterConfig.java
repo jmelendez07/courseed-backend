@@ -51,6 +51,7 @@ public class RouterConfig {
             .path("/subscriptions", () -> subscriptionRoutes(subscriptionController))
             .path("/profiles", () -> profileRoutes(profileController))
             .path("/predictions", () -> predictionRoutes(predictionController))
+            .add(healthRoute())
             .build();
     }
 
@@ -228,6 +229,12 @@ public class RouterConfig {
             .GET("/users-recomended/course/{courseId}", predictionController::getRecomendedUsersByCourse)
             .GET("/courses", predictionController::getAllCoursesWithAvgConfidence)
             .POST("/form-prediction", predictionController::predictCourseRecommendation)
+            .build();
+    }
+
+    private RouterFunction<ServerResponse> healthRoute() {
+        return RouterFunctions.route()
+            .GET("/", request -> ServerResponse.ok().bodyValue("OK"))
             .build();
     }
 

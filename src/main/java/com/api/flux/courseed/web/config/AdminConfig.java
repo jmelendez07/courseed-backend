@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -23,10 +24,11 @@ public class AdminConfig implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private String adminEmail = "admin@admin.com";
+    @Value("${ADMIN_EMAIL}")
+    private String adminEmail;
 
-    // @Value("${ADMIN_PASS}")
-    private String adminPass = "test12345";
+    @Value("${ADMIN_PASS}")
+    private String adminPass;
 
     @Override
     public void run(String... args) {

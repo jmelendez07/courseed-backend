@@ -129,7 +129,7 @@ public class PredictionService implements InterfacePredictionService {
     private Instances dataStructure;
     private Classifier classifier;
 
-    public PredictionService() throws Exception {
+    public PredictionService() {
         try {
             // Cargar el modelo desde el classpath
             ClassPathResource modelResource = new ClassPathResource("j48modelCourseed.model");

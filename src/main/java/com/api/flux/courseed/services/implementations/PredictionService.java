@@ -130,13 +130,19 @@ public class PredictionService implements InterfacePredictionService {
     private Classifier classifier;
 
     public PredictionService() throws Exception {
-        ClassPathResource modelResource = new ClassPathResource("j48modelCourseed.model");
-        classifier = (Classifier) weka.core.SerializationHelper.read(modelResource.getInputStream());
+        try {
+            // Cargar el modelo desde el classpath
+            ClassPathResource modelResource = new ClassPathResource("j48modelCourseed.model");
+            classifier = (Classifier) weka.core.SerializationHelper.read(modelResource.getInputStream());
 
-        ClassPathResource arffResource = new ClassPathResource("CourseedUsers.user_course_dataset.arff");
-        DataSource source = new DataSource(arffResource.getInputStream());
-        dataStructure = source.getDataSet();
-        dataStructure.setClassIndex(dataStructure.numAttributes() - 1);
+            // Cargar el archivo ARFF desde el classpath
+            ClassPathResource arffResource = new ClassPathResource("CourseedUsers.user_course_dataset.arff");
+            DataSource source = new DataSource(arffResource.getInputStream());
+            dataStructure = source.getDataSet();
+            dataStructure.setClassIndex(dataStructure.numAttributes() - 1);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al cargar los recursos necesarios para PredictionService", e);
+        }   
     }
 
     public Mono<UserCourseRecomended> getUserCourseRecomended(String userId, String courseId) {

@@ -23,7 +23,7 @@ public interface InterfaceUserService {
     Mono<UserDto> getUserByEmail(String email);
     Mono<List<UserCountByMonth>> getUserCountForLastSixMonths();
     Mono<Object> createUser(CreateUserDto createUserDto);
-    Mono<Object> updateUserEmail(String id, UpdateUserEmailDto updateUserEmailDto);
+    Mono<UserDto> updateUserEmail(String id, UpdateUserEmailDto updateUserEmailDto);
     Mono<UserDto> updateUserPassword(String id, UpdateUserPasswordDto updateUserPasswordDto);
     Mono<UserDto> updateUserRoles(String id, UpdateUserRolesDto updateUserRolesDto);
     Mono<Boolean> deleteUser(String id);

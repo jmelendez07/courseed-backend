@@ -196,7 +196,7 @@ public class UserService implements InterfaceUserService {
     }
 
     @Override
-    public Mono<Object> createUser(CreateUserDto createUserDto) {
+    public Mono<UserDto> createUser(CreateUserDto createUserDto) {
         if (!createUserDto.getPassword().equals(createUserDto.getConfirmPassword())) {
             return Mono.error(new CustomWebExchangeBindException(
                 createUserDto, 
@@ -232,12 +232,12 @@ public class UserService implements InterfaceUserService {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
 
                 return userRepository.save(user)
-                    .map(savedUser -> userMapper.toUserDto(savedUser));
+                    .map(userMapper::toUserDto);
             }));
     }
 
     @Override
-    public Mono<Object> updateUserEmail(String id, UpdateUserEmailDto updateUserEmailDto) {
+    public Mono<UserDto> updateUserEmail(String id, UpdateUserEmailDto updateUserEmailDto) {
         return userRepository.findById(id)
             .flatMap(user -> userRepository.findByEmailAndIdNot(updateUserEmailDto.getEmail(), id)
                 .flatMap(existingUserWithEmail -> Mono.error(

@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -97,6 +96,19 @@ public class SubscriptionController {
         });
     }
 
+    public Mono<ServerResponse> verify(ServerRequest serverRequest) {
+        return serverRequest.principal()
+            .flatMap(principal -> subscriptionService.verify(principal))
+                .flatMap(isSubscriber -> {
+                    if (isSubscriber) {
+                        return ServerResponse.ok().bodyValue(isSubscriber);
+                    } else {
+                        return ServerResponse.notFound().build();
+                    }
+                })
+                .switchIfEmpty(ServerResponse.notFound().build());   
+    }
+
     private String extractUserId(String referenceCode) {
         String[] parts = referenceCode.split("_");
         return parts.length > 1 ? parts[1] : "unknown";
@@ -116,20 +128,20 @@ public class SubscriptionController {
     }
 
     private String generateMd5Signature(String referenceCode, String amount, String currency, String statePol) {
-    try {
-        String formattedAmount = String.format(Locale.US, "%.1f", Double.parseDouble(amount));
-        String data = API_KEY + "~" + MERCHANT_ID + "~" + referenceCode + "~" + formattedAmount + "~" + currency + "~" + statePol;
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] hash = md.digest(data.getBytes(StandardCharsets.UTF_8));
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : hash) {
-            hexString.append(String.format("%02x", b));
-        }
+        try {
+            String formattedAmount = String.format(Locale.US, "%.1f", Double.parseDouble(amount));
+            String data = API_KEY + "~" + MERCHANT_ID + "~" + referenceCode + "~" + formattedAmount + "~" + currency + "~" + statePol;
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hash = md.digest(data.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                hexString.append(String.format("%02x", b));
+            }
 
-        return hexString.toString();
-    } catch (NoSuchAlgorithmException e) {
-        throw new RuntimeException("Error al generar firma MD5", e);
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error al generar firma MD5", e);
+        }
     }
-}
 
 }
